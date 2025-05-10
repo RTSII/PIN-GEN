@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>RTS-PIN</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -512,6 +511,10 @@
             text-shadow: 0 0 3px var(--primary-light);
         }
 
+        #results-output-card {
+            display: none;
+        }
+
         #results-output-card .results-header {
             display: flex;
             justify-content: flex-end;
@@ -846,6 +849,10 @@
             margin-top: 1rem;
         }
 
+        #clear-all-selected-units {
+            margin-bottom: 1rem;
+        }
+
         #selected-units-count-display {
             font-size: 0.95rem;
             font-weight: bold;
@@ -853,6 +860,10 @@
             margin-left: 10px;
             opacity: 0.9;
             text-shadow: var(--text-shadow);
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .modal-overlay {
@@ -863,6 +874,7 @@
             height: 100vh;
             background-color: rgba(10, 15, 26, 0.8);
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -1208,8 +1220,7 @@
                                 title="Select/Deselect all units from all companies">
                             <label for="global-select-all-units-checkbox">Select/Deselect All Units</label>
                         </div>
-                        <button id="clear-all-selected-units" class="secondary" style="margin-bottom: 1rem;">Clear All
-                            Selections</button>
+                        <button id="clear-all-selected-units" class="secondary">Clear All Selections</button>
                         <p>Click a company to select units, or use the checkbox next to the company name to select all
                             its units.</p>
                         <div id="company-grid-container" class="company-grid"></div>
@@ -1236,11 +1247,11 @@
                             <button id="generate-selected-units-pins" class="primary">Generate PINs for Selected
                                 Units</button>
                         </div>
-                        <div id="parse-status" class="status" style="display: none;"></div>
+                        <div id="parse-status" class="status hidden"></div>
                     </div>
                 </div>
 
-                <div class="card collapsible main-accordion-card" id="results-output-card" style="display: none;">
+                <div class="card collapsible main-accordion-card hidden" id="results-output-card">
                     <div class="card-header" role="button" tabindex="0" aria-expanded="false">
                         <h2>Generated PINs</h2>
                         <span class="toggle-icon" aria-hidden="true">
@@ -1258,11 +1269,11 @@
                                 <button id="export-csv" class="secondary" disabled>Export CSV</button>
                             </div>
                         </div>
-                        <div id="no-results-message" class="no-results-message" style="display: none;">
+                        <div id="no-results-message" class="no-results-message hidden">
                             No PINs to display. Generate PINs using the options above.
                         </div>
                         <div id="inline-results-table-container">
-                            <table id="results-table" style="display:none;">
+                            <table id="results-table" class="hidden">
                                 <thead>
                                     <tr>
                                         <th>Date Range</th>
