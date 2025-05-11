@@ -1,15 +1,3 @@
-You're right, "rocket science" this is not! My apologies for the previous attempt not hitting the mark. The fixed width of the sidebar was indeed the main constraint I might have mismanaged in the distribution.
-
-Let's get this fixed by specifically making the year dropdown narrower to give ample space to the month dropdown. I'll achieve this by:
-
-1.  Adding a new CSS rule specifically for the `#year-select` element to reduce its horizontal padding. This will make the year dropdown itself take up less space.
-2.  Adjusting the `grid-template-columns` for the `.month-selector` (which holds both month and year dropdowns). I'll assign a smaller, fixed width to the year column and let the month column take the remaining flexible space. This ensures the month dropdown gets the priority for width.
-
-This approach will give more "inside dimension" to the month dropdown as requested, allowing two-digit numbers to be clearly visible, while making the year dropdown more compact.
-
-Here's the updated HTML file with the CSS changes:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1739,4 +1727,3 @@ Here's the updated HTML file with the CSS changes:
     </script>
 </body>
 </html>
-```
