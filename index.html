@@ -32,7 +32,7 @@
             --text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             --card-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 0 1px var(--border-color);
             --card-hover-shadow: 0 8px 25px rgba(var(--primary-color-rgb, 0, 102, 255), 0.25), 0 0 0 1px var(--primary-light);
-            --header-height: 60px;
+            /* --header-height: 60px; Removed */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-weight: bold !important; }
@@ -51,30 +51,7 @@
         ::-webkit-scrollbar-thumb:hover { background-color: var(--primary-dark); }
 
         .app-container { display: flex; flex-direction: column; min-height: 100vh; width: 100vw; overflow-x: hidden; }
-        .header {
-            background-color: var(--card-bg);
-            color: var(--dark-text);
-            padding: 0.6rem 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--card-shadow);
-            z-index: 100;
-            position: sticky;
-            top: 0;
-            border-bottom: 1px solid var(--border-color);
-            height: var(--header-height);
-        }
-        .header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            text-align: center;
-            flex-grow: 1;
-            text-shadow: 0 0 8px var(--accent-color), 0 0 12px var(--accent-dark), var(--text-shadow);
-            letter-spacing: 2px;
-        }
+        /* Removed .header styles completely */
 
         .main-content-area {
             display: flex;
@@ -82,7 +59,7 @@
             gap: 1.5rem;
             width: 95%;
             max-width: 1200px;
-            margin: 1.5rem auto;
+            margin: 1.5rem auto; /* This top margin now defines top space */
             padding: 0;
             flex: 1;
         }
@@ -90,13 +67,18 @@
         #left-sidebar-container {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.5rem; 
             flex: 0 0 280px;
             height: fit-content;
             position: sticky;
-            top: calc(var(--header-height) + 1.5rem);
+            top: 1.5rem; /* Adjusted: sticks 1.5rem from viewport top */
             z-index: 50;
         }
+        
+        #left-sidebar-container > .card {
+            margin-bottom: 0; /* Rely on parent gap for spacing */
+        }
+
 
         #main-cards-wrapper {
             flex: 1;
@@ -110,35 +92,38 @@
             border-radius: 12px;
             box-shadow: var(--card-shadow);
             padding: 1.2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem; /* Default margin for cards not in left-sidebar */
             border: 1px solid var(--border-color);
             transition: box-shadow 0.3s ease, max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease-in-out, padding-top 0.3s ease;
         }
-        #date-selection-card.card, #logo-card.card { margin-bottom: 0; }
+        /* #date-selection-card.card { margin-bottom: 0; } /* Covered by #left-sidebar-container > .card */
 
-        #logo-card {
+        #logo-card { /* Styles for the logo card, now in sidebar */
             padding: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 180px;
             max-height: 250px;
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            /* cursor: pointer; /* Interaction is on inner #rs-logo-container */
         }
-        #logo-card:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 10px rgba(var(--accent-color-rgb, 57,255,20), 0.3), 0 0 0 1px var(--accent-dark);
-        }
-        #rs-logo-container {
+        
+        #rs-logo-container { /* Styles for the inner interactive logo container */
             width: 100%;
-            max-width: 180px;
+            max-width: 180px; /* Restored original size */
             aspect-ratio: 200 / 100;
             display: flex;
             align-items: center;
             justify-content: center;
             perspective: 600px;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
+        #rs-logo-container:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(var(--accent-color-rgb, 57,255,20), 0.3), 0 0 0 1px var(--accent-dark);
+        }
+
         .rs-letters-animated {
             width: 100%;
             height: 100%;
@@ -148,7 +133,7 @@
         }
          .rs-text-element {
             font-family: 'Orbitron', sans-serif;
-            font-size: 100px;
+            font-size: 100px; 
             font-weight: 700;
             stroke-width: 3.5;
             stroke-linejoin: round;
@@ -237,10 +222,9 @@
             box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 0, 102, 255), 0.4), inset 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        /* MODIFIED: Added specific padding override for #year-select */
         #year-select {
-            padding-left: 8px; /* Reduced left padding */
-            padding-right: 30px; /* Reduced right padding for arrow, ensure it overrides general select rule if needed */
+            padding-left: 8px; 
+            padding-right: 30px; 
         }
 
         .month-year-selector-container { display: flex; gap: 10px; align-items: center; margin-bottom: 1rem; }
@@ -248,17 +232,14 @@
 
         .month-selector {
             display: grid;
-            /* MODIFIED: Adjust grid to give month selector more space and year selector a new fixed width */
-            grid-template-columns: 1fr 60px; /* Month takes flexible space, year has a fixed 60px width */
+            grid-template-columns: 1fr 60px; 
             gap: 10px;
             align-items: center;
             flex-grow: 1;
         }
         .month-selector #month-select {
-            /* Month select takes 100% of its grid cell */
         }
         .month-selector .year-select-wrapper {
-            /* Wrapper for year select, its grid cell has fixed width */
         }
         .month-selector select { margin: 0; width: 100%; }
 
@@ -316,21 +297,18 @@
             #left-sidebar-container {
                 flex-direction: column;
                 flex: 1 1 auto;
-                position: static;
+                position: static; /* Overrides sticky for mobile */
                 width: 100%;
             }
-            #date-selection-card, #logo-card {
+            #logo-card, #date-selection-card { /* Ensure cards in sidebar take full width on mobile */
                  width: 100%;
-                 margin-bottom: 1.5rem;
             }
             .month-selector {
-                 /* MODIFIED: Adjust grid for mobile, consistent with desktop for month/year sizing */
-                 grid-template-columns: 1fr 60px; /* Month takes flexible space, year fixed at 60px */
+                 grid-template-columns: 1fr 60px; 
             }
         }
         @media (min-width: 821px) {
-            .header h1 { font-size: 1.8rem; }
-            .main-content-area { margin: 2rem auto; }
+            .main-content-area { margin: 1.5rem auto; } /* Adjusted to match top margin consistency */
         }
 
 
@@ -493,12 +471,27 @@
 </head>
 <body>
     <div class="app-container">
-        <header class="header">
-            <h1>RTS-PIN</h1>
-        </header>
-
+        <!-- Header removed -->
         <div class="main-content-area">
             <div id="left-sidebar-container">
+                <div class="card" id="logo-card">
+                    <div id="rs-logo-container" role="button" tabindex="0" aria-label="Reset Application State">
+                        <svg class="rs-letters-animated" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <filter id="neon-glow-rs-filter" x="-50%" y="-50%" width="200%" height="200%">
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur" in="SourceGraphic" />
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <text class="rs-text-element r-letter" x="50" y="70" text-anchor="middle">R</text>
+                            <text class="rs-text-element s-letter" x="140" y="70" text-anchor="middle">S</text>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="card collapsible" id="date-selection-card">
                     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
                         <h2><span class="step-number">1</span>Select Date</h2>
@@ -517,24 +510,6 @@
                             </div>
                             <button id="next-month-btn" aria-label="Next month">›</button>
                         </div>
-                    </div>
-                </div>
-
-                <div class="card" id="logo-card" role="button" tabindex="0" aria-label="Reset Application State">
-                    <div id="rs-logo-container">
-                        <svg class="rs-letters-animated" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <filter id="neon-glow-rs-filter" x="-50%" y="-50%" width="200%" height="200%">
-                                    <feGaussianBlur stdDeviation="4" result="coloredBlur" in="SourceGraphic" />
-                                    <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                            </defs>
-                            <text class="rs-text-element r-letter" x="50" y="70" text-anchor="middle">R</text>
-                            <text class="rs-text-element s-letter" x="140" y="70" text-anchor="middle">S</text>
-                        </svg>
                     </div>
                 </div>
             </div>
@@ -1516,11 +1491,11 @@
         function populateMonthDropdown() {
             const monthSelect = document.getElementById('month-select');
             monthSelect.innerHTML = '';
-            const monthNames = getMonthName(); // Get the array of month names
+            const monthNames = getMonthName(); 
             for (let i = 0; i < 12; i++) {
                 const option = document.createElement('option');
                 option.value = i;
-                option.textContent = (i + 1).toString(); // Display 1-12
+                option.textContent = (i + 1).toString(); 
                 monthSelect.appendChild(option);
             }
         }
@@ -1591,8 +1566,8 @@
                 saveDataToLocalStorage();
             });
 
-            document.getElementById('logo-card').addEventListener('click', resetApplicationState);
-            document.getElementById('logo-card').addEventListener('keydown', (e) => {
+            document.getElementById('rs-logo-container').addEventListener('click', resetApplicationState);
+            document.getElementById('rs-logo-container').addEventListener('keydown', (e) => {
                  if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     resetApplicationState();
