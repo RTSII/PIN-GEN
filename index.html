@@ -1,4 +1,15 @@
+You're right, "rocket science" this is not! My apologies for the previous attempt not hitting the mark. The fixed width of the sidebar was indeed the main constraint I might have mismanaged in the distribution.
 
+Let's get this fixed by specifically making the year dropdown narrower to give ample space to the month dropdown. I'll achieve this by:
+
+1.  Adding a new CSS rule specifically for the `#year-select` element to reduce its horizontal padding. This will make the year dropdown itself take up less space.
+2.  Adjusting the `grid-template-columns` for the `.month-selector` (which holds both month and year dropdowns). I'll assign a smaller, fixed width to the year column and let the month column take the remaining flexible space. This ensures the month dropdown gets the priority for width.
+
+This approach will give more "inside dimension" to the month dropdown as requested, allowing two-digit numbers to be clearly visible, while making the year dropdown more compact.
+
+Here's the updated HTML file with the CSS changes:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,118 +24,118 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0066FF; 
+            --primary-color: #0066FF;
             --primary-dark: #004ACC;
             --primary-light: #3385FF;
-            --accent-color: #39FF14; 
+            --accent-color: #39FF14;
             --accent-dark: #28B80F;
-            --dark-text: #E0E6ED; 
-            --light-text: #121212; 
-            --background: #0A0F1A; 
-            --card-bg: #101A30; 
-            --border-color: #203050; 
+            --dark-text: #E0E6ED;
+            --light-text: #121212;
+            --background: #0A0F1A;
+            --card-bg: #101A30;
+            --border-color: #203050;
             --input-bg: #182545;
             --input-border-color: #283860;
-            --success-color: #32CD32; 
-            --warning-color: #FF4500; 
-            --hover-bg-light: rgba(57, 255, 20, 0.1); 
+            --success-color: #32CD32;
+            --warning-color: #FF4500;
+            --hover-bg-light: rgba(57, 255, 20, 0.1);
             --hover-bg-dark: rgba(0, 0, 0, 0.2);
             --copy-icon-color: var(--accent-color);
             --text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             --card-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 0 1px var(--border-color);
             --card-hover-shadow: 0 8px 25px rgba(var(--primary-color-rgb, 0, 102, 255), 0.25), 0 0 0 1px var(--primary-light);
-            --header-height: 60px; 
+            --header-height: 60px;
         }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-weight: bold !important; } 
-        body { 
-            font-family: 'Roboto Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--background); 
-            color: var(--dark-text); 
-            line-height: 1.6; 
-            overscroll-behavior: none; 
-            transition: background-color 0.3s, color 0.3s; 
-            text-shadow: var(--text-shadow); 
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-weight: bold !important; }
+        body {
+            font-family: 'Roboto Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--dark-text);
+            line-height: 1.6;
+            overscroll-behavior: none;
+            transition: background-color 0.3s, color 0.3s;
+            text-shadow: var(--text-shadow);
         }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: var(--card-bg); }
         ::-webkit-scrollbar-thumb { background-color: var(--primary-color); border-radius: 10px; border: 2px solid var(--card-bg); }
         ::-webkit-scrollbar-thumb:hover { background-color: var(--primary-dark); }
-        
+
         .app-container { display: flex; flex-direction: column; min-height: 100vh; width: 100vw; overflow-x: hidden; }
-        .header { 
-            background-color: var(--card-bg); 
-            color: var(--dark-text); 
-            padding: 0.6rem 1rem; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
+        .header {
+            background-color: var(--card-bg);
+            color: var(--dark-text);
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             box-shadow: var(--card-shadow);
-            z-index: 100; 
-            position: sticky; 
-            top: 0; 
-            border-bottom: 1px solid var(--border-color); 
+            z-index: 100;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid var(--border-color);
             height: var(--header-height);
         }
-        .header h1 { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 1.8rem; 
-            font-weight: 700; 
-            color: var(--accent-color); 
-            text-align: center; 
-            flex-grow: 1; 
-            text-shadow: 0 0 8px var(--accent-color), 0 0 12px var(--accent-dark), var(--text-shadow); 
-            letter-spacing: 2px; 
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-align: center;
+            flex-grow: 1;
+            text-shadow: 0 0 8px var(--accent-color), 0 0 12px var(--accent-dark), var(--text-shadow);
+            letter-spacing: 2px;
         }
-        
-        .main-content-area { 
+
+        .main-content-area {
             display: flex;
-            flex-direction: row; 
+            flex-direction: row;
             gap: 1.5rem;
-            width: 95%; 
-            max-width: 1200px; 
-            margin: 1.5rem auto; 
-            padding: 0; 
-            flex: 1; 
+            width: 95%;
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0;
+            flex: 1;
         }
 
         #left-sidebar-container {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            flex: 0 0 280px; 
-            height: fit-content; 
+            flex: 0 0 280px;
+            height: fit-content;
             position: sticky;
-            top: calc(var(--header-height) + 1.5rem); 
+            top: calc(var(--header-height) + 1.5rem);
             z-index: 50;
         }
 
         #main-cards-wrapper {
-            flex: 1; 
-            min-width: 0; 
+            flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
         }
-        
-        .card { 
-            background-color: var(--card-bg); 
-            border-radius: 12px; 
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
             box-shadow: var(--card-shadow);
-            padding: 1.2rem; 
-            margin-bottom: 1.5rem; 
-            border: 1px solid var(--border-color); 
-            transition: box-shadow 0.3s ease, max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease-in-out, padding-top 0.3s ease; 
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease, max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease-in-out, padding-top 0.3s ease;
         }
-        #date-selection-card.card, #logo-card.card { margin-bottom: 0; } 
-        
-        #logo-card { 
-            padding: 1rem; 
+        #date-selection-card.card, #logo-card.card { margin-bottom: 0; }
+
+        #logo-card {
+            padding: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 180px; 
-            max-height: 250px; 
-            cursor: pointer; 
+            min-height: 180px;
+            max-height: 250px;
+            cursor: pointer;
             transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
         #logo-card:active {
@@ -133,268 +144,301 @@
         }
         #rs-logo-container {
             width: 100%;
-            max-width: 180px; 
-            aspect-ratio: 200 / 100; 
+            max-width: 180px;
+            aspect-ratio: 200 / 100;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 600px; 
+            perspective: 600px;
         }
-        .rs-letters-animated { 
+        .rs-letters-animated {
             width: 100%;
             height: 100%;
-            transform-style: preserve-3d; 
-            animation: rotateYCounterClockwise 8s linear infinite; 
-            overflow: visible; 
+            transform-style: preserve-3d;
+            animation: rotateYCounterClockwise 8s linear infinite;
+            overflow: visible;
         }
          .rs-text-element {
             font-family: 'Orbitron', sans-serif;
-            font-size: 100px; 
+            font-size: 100px;
             font-weight: 700;
-            stroke-width: 3.5; 
+            stroke-width: 3.5;
             stroke-linejoin: round;
             stroke-linecap: round;
             filter: url(#neon-glow-rs-filter);
         }
-        .rs-text-element.r-letter { fill: var(--primary-light); stroke: var(--dark-text); }
-        .rs-text-element.s-letter { fill: var(--accent-color); stroke: var(--dark-text); }
+        .r-letter { fill: var(--primary-light); stroke: var(--dark-text); }
+        .s-letter { fill: var(--accent-color); stroke: var(--dark-text); }
 
 
-        @keyframes rotateYCounterClockwise { 
+        @keyframes rotateYCounterClockwise {
             from { transform: rotateY(0deg); }
             to { transform: rotateY(-360deg); }
         }
 
 
         .card:hover { box-shadow: var(--card-hover-shadow); }
-        
+
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; padding-bottom: 0.8rem; border-bottom: 1px solid transparent; cursor: pointer; transition: border-color 0.3s ease, margin-bottom 0.3s ease; }
         .card.expanded > .card-header { border-bottom-color: var(--border-color); margin-bottom: 0.8rem; }
-        .card-header h2 { font-size: 1.2rem; font-weight: bold; color: var(--primary-light); display: flex; align-items: center; text-shadow: var(--text-shadow); } 
+        .card-header h2 { font-size: 1.2rem; font-weight: bold; color: var(--primary-light); display: flex; align-items: center; text-shadow: var(--text-shadow); }
         .toggle-icon { color: var(--primary-light); transition: transform 0.3s ease; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; }
-        .toggle-icon svg { width: 20px; height: 20px; } 
+        .toggle-icon svg { width: 20px; height: 20px; }
         .card.expanded .toggle-icon { transform: rotate(180deg); }
-        
+
         .card-content { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease-in-out 0.1s, padding-top 0.3s ease; padding-top: 0; }
         .card.expanded .card-content { opacity: 1; padding-top: 0.8rem; }
-        
-        .step-number { display: inline-flex; justify-content: center; align-items: center; width: 28px; height: 28px; background-color: var(--primary-color); color: white; border-radius: 50%; margin-right: 12px; font-weight: bold; font-size: 1rem; box-shadow: 0 0 8px var(--primary-light); } 
-        
-        button { 
-            padding: 12px 20px; 
-            background-color: var(--primary-color); 
-            color: white; 
-            border: 1px solid var(--primary-dark); 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            font-weight: bold; 
-            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease; 
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; 
-            width: 100%; margin: 0.8rem 0; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 -2px 0px rgba(0,0,0,0.15); 
+
+        .step-number { display: inline-flex; justify-content: center; align-items: center; width: 28px; height: 28px; background-color: var(--primary-color); color: white; border-radius: 50%; margin-right: 12px; font-weight: bold; font-size: 1rem; box-shadow: 0 0 8px var(--primary-light); }
+
+        button {
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: 1px solid var(--primary-dark);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; margin: 0.8rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 -2px 0px rgba(0,0,0,0.15);
             text-shadow: var(--text-shadow);
         }
-        button:hover { background-color: var(--primary-dark); box-shadow: 0 4px 8px rgba(var(--primary-color-rgb, 0,102,255), 0.3), inset 0 -2px 0px rgba(0,0,0,0.1); } 
-        button:active { transform: scale(0.97) translateY(1px); background-color: var(--primary-dark); box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 -1px 0px rgba(0,0,0,0.1); } 
-        button:disabled { background-color: #2c3e50; color: #7f8c8d; cursor: not-allowed; box-shadow: inset 0 -2px 0px rgba(0,0,0,0.1); opacity: 0.7; } 
-        
-        button.secondary { background-color: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); box-shadow: 0 0 5px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); } 
-        button.secondary:hover { background-color: var(--hover-bg-light); border-color: var(--accent-dark); color: var(--accent-dark); box-shadow: 0 0 10px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); } 
-        button.accent { background-color: var(--accent-color); color: var(--light-text); border: 1px solid var(--accent-dark); box-shadow: 0 0 8px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); } 
-        button.accent:hover { background-color: var(--accent-dark); box-shadow: 0 0 12px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); } 
+        button:hover { background-color: var(--primary-dark); box-shadow: 0 4px 8px rgba(var(--primary-color-rgb, 0,102,255), 0.3), inset 0 -2px 0px rgba(0,0,0,0.1); }
+        button:active { transform: scale(0.97) translateY(1px); background-color: var(--primary-dark); box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 -1px 0px rgba(0,0,0,0.1); }
+        button:disabled { background-color: #2c3e50; color: #7f8c8d; cursor: not-allowed; box-shadow: inset 0 -2px 0px rgba(0,0,0,0.1); opacity: 0.7; }
+
+        button.secondary { background-color: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); box-shadow: 0 0 5px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); }
+        button.secondary:hover { background-color: var(--hover-bg-light); border-color: var(--accent-dark); color: var(--accent-dark); box-shadow: 0 0 10px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); }
+        button.accent { background-color: var(--accent-color); color: var(--light-text); border: 1px solid var(--accent-dark); box-shadow: 0 0 8px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); }
+        button.accent:hover { background-color: var(--accent-dark); box-shadow: 0 0 12px var(--accent-color), inset 0 -2px 0px rgba(0,0,0,0.1); }
 
         @keyframes shake { 0%, 100% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); } 20%, 40%, 60%, 80% { transform: translateX(5px); } }
         .shake-button { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
         .button-warn-pulse { animation: warnPulse 1s infinite; border-color: var(--warning-color) !important; }
         @keyframes warnPulse { 0% { box-shadow: 0 0 0 0 rgba(var(--warning-color-rgb), 0.7); } 70% { box-shadow: 0 0 0 10px rgba(var(--warning-color-rgb), 0); } 100% { box-shadow: 0 0 0 0 rgba(var(--warning-color-rgb), 0); } }
 
-        input[type="search"], select, input[type="number"] { 
-            padding: 12px 15px; 
-            border: 1px solid var(--input-border-color); 
-            border-radius: 8px; 
-            font-size: 1rem; 
+        input[type="search"], select, input[type="number"] {
+            padding: 12px 15px;
+            border: 1px solid var(--input-border-color);
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: bold;
-            background-color: var(--input-bg); 
-            color: var(--dark-text); 
-            width: 100%; 
-            margin: 0.5rem 0; 
-            transition: border-color 0.2s ease, box-shadow 0.2s ease; 
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); 
+            background-color: var(--input-bg);
+            color: var(--dark-text);
+            width: 100%;
+            margin: 0.5rem 0;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
         }
-        select { 
-            -webkit-appearance: none; appearance: none; 
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2339FF14' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
-            background-repeat: no-repeat; background-position: right 15px center; background-size: 20px; 
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E0E6ED' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 35px;
         }
-        input[type="search"]:focus, select:focus, input[type="number"]:focus { 
-            outline: none; 
-            border-color: var(--primary-color); 
-            box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 0, 102, 255), 0.4), inset 0 1px 3px rgba(0,0,0,0.2); 
+        input[type="search"]:focus, select:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 0, 102, 255), 0.4), inset 0 1px 3px rgba(0,0,0,0.2);
         }
-        
+
+        /* MODIFIED: Added specific padding override for #year-select */
+        #year-select {
+            padding-left: 8px; /* Reduced left padding */
+            padding-right: 30px; /* Reduced right padding for arrow, ensure it overrides general select rule if needed */
+        }
+
         .month-year-selector-container { display: flex; gap: 10px; align-items: center; margin-bottom: 1rem; }
-        .month-year-selector-container button { width: auto; padding: 12px 15px; font-size: 1.2rem; line-height: 1; margin:0; } 
-        
-        .month-selector { 
-            display: grid; 
-            grid-template-columns: 4fr 2fr; 
-            gap: 10px; 
-            align-items: center; 
-            flex-grow: 1; 
+        .month-year-selector-container button { width: auto; padding: 12px 15px; font-size: 1.2rem; line-height: 1; margin:0; }
+
+        .month-selector {
+            display: grid;
+            /* MODIFIED: Adjust grid to give month selector more space and year selector a new fixed width */
+            grid-template-columns: 1fr 60px; /* Month takes flexible space, year has a fixed 60px width */
+            gap: 10px;
+            align-items: center;
+            flex-grow: 1;
         }
-        .month-selector select { margin: 0; } 
+        .month-selector #month-select {
+            /* Month select takes 100% of its grid cell */
+        }
+        .month-selector .year-select-wrapper {
+            /* Wrapper for year select, its grid cell has fixed width */
+        }
+        .month-selector select { margin: 0; width: 100%; }
 
 
-        .status { margin: 1rem 0; padding: 12px 15px; border-radius: 8px; animation: fadeInStatus 0.5s; font-size: 0.95rem; font-weight: bold; border-left-width: 5px; border-left-style: solid; box-shadow: var(--card-shadow); } 
+        .status { margin: 1rem 0; padding: 12px 15px; border-radius: 8px; animation: fadeInStatus 0.5s; font-size: 0.95rem; font-weight: bold; border-left-width: 5px; border-left-style: solid; box-shadow: var(--card-shadow); }
         @keyframes fadeInStatus { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .success { background-color: rgba(50, 205, 50, 0.2); border-left-color: var(--success-color); color: var(--success-color); text-shadow: 0 0 3px var(--success-color); } 
-        .error { background-color: rgba(255, 69, 0, 0.2); border-left-color: var(--warning-color); color: var(--warning-color); text-shadow: 0 0 3px var(--warning-color); } 
-        .info { background-color: rgba(var(--primary-color-rgb, 0,102,255), 0.2); border-left-color: var(--primary-color); color: var(--primary-light); text-shadow: 0 0 3px var(--primary-light); } 
-        
+        .success { background-color: rgba(50, 205, 50, 0.2); border-left-color: var(--success-color); color: var(--success-color); text-shadow: 0 0 3px var(--success-color); }
+        .error { background-color: rgba(255, 69, 0, 0.2); border-left-color: var(--warning-color); color: var(--warning-color); text-shadow: 0 0 3px var(--warning-color); }
+        .info { background-color: rgba(var(--primary-color-rgb, 0,102,255), 0.2); border-left-color: var(--primary-color); color: var(--primary-light); text-shadow: 0 0 3px var(--primary-light); }
+
         #results-output-card .results-header { display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; flex-wrap: wrap; gap: 10px; cursor: default; }
         .export-buttons { display: flex; gap: 10px; }
-        .export-buttons button { margin: 0; padding: 8px 15px; width: auto; font-size: 0.9rem; } 
+        .export-buttons button { margin: 0; padding: 8px 15px; width: auto; font-size: 0.9rem; }
 
-        #inline-results-table-container { 
-            max-height: 400px; 
-            overflow-y: auto; 
-            border: 1px solid var(--border-color); 
-            border-radius: 8px; 
-            margin-top: 0.5rem; 
-            background-color: rgba(0,0,0,0.1); 
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3); 
-            -webkit-overflow-scrolling: touch; 
-        } 
-        .no-results-message { text-align: center; padding: 25px; color: var(--dark-text); opacity: 0.7; font-style: italic; font-size: 1rem; } 
+        #inline-results-table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            background-color: rgba(0,0,0,0.1);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+            -webkit-overflow-scrolling: touch;
+        }
+        .no-results-message { text-align: center; padding: 25px; color: var(--dark-text); opacity: 0.7; font-style: italic; font-size: 1rem; }
 
-        table { width: 100%; border-collapse: collapse; margin: 0; font-size: 0.95rem; } 
+        table { width: 100%; border-collapse: collapse; margin: 0; font-size: 0.95rem; }
         table, th, td { border: 1px solid var(--border-color); }
-        th, td { padding: 12px 15px; text-align: left; font-weight: bold; } 
-        th { background-color: rgba(var(--primary-color-rgb, 0,102,255), 0.3); color: var(--primary-light); font-weight: bold; position: sticky; top: 0; z-index: 1; text-shadow: var(--text-shadow); } 
-        tr:nth-child(even) td { background-color: rgba(var(--accent-color-rgb, 57,255,20), 0.03); } 
+        th, td { padding: 12px 15px; text-align: left; font-weight: bold; }
+        th { background-color: rgba(var(--primary-color-rgb, 0,102,255), 0.3); color: var(--primary-light); font-weight: bold; position: sticky; top: 0; z-index: 1; text-shadow: var(--text-shadow); }
+        tr:nth-child(even) td { background-color: rgba(var(--accent-color-rgb, 57,255,20), 0.03); }
         tr:hover td { background-color: var(--hover-bg-light); }
-        
-        .pin-cell { font-family: 'SF Mono', 'Consolas', 'Courier New', monospace; font-weight: bold; color: var(--accent-color); text-align: center; font-size: 1rem; display: flex; align-items: center; justify-content: space-between; text-shadow: 0 0 5px var(--accent-color); } 
+
+        .pin-cell { font-family: 'SF Mono', 'Consolas', 'Courier New', monospace; font-weight: bold; color: var(--accent-color); text-align: center; font-size: 1rem; display: flex; align-items: center; justify-content: space-between; text-shadow: 0 0 5px var(--accent-color); }
         .pin-value { flex-grow: 1; text-align: center; }
-        .copy-pin-btn { background: none; border: none; color: var(--copy-icon-color); cursor: pointer; padding: 6px;  margin: 0; width: auto; line-height: 1; opacity: 0.7; transition: opacity 0.2s, color 0.2s; } 
-        .copy-pin-btn:hover { opacity: 1; color: var(--accent-dark); } 
-        .copy-pin-btn svg { width: 18px; height: 18px; vertical-align: middle; } 
+        .copy-pin-btn { background: none; border: none; color: var(--copy-icon-color); cursor: pointer; padding: 6px;  margin: 0; width: auto; line-height: 1; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+        .copy-pin-btn:hover { opacity: 1; color: var(--accent-dark); }
+        .copy-pin-btn svg { width: 18px; height: 18px; vertical-align: middle; }
         .pin-failed { color: var(--warning-color); font-style: italic; text-shadow: 0 0 3px var(--warning-color) !important; }
 
 
-        .loading { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent-color); animation: spin 1s ease-in-out infinite; margin-right: 8px; vertical-align: middle; } 
+        .loading { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent-color); animation: spin 1s ease-in-out infinite; margin-right: 8px; vertical-align: middle; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        .install-banner { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--primary-color); color: white; padding: 12px 15px; display: none; justify-content: space-between; align-items: center; z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); border-top-left-radius: 8px; border-top-right-radius: 8px; text-shadow: var(--text-shadow); } 
-        .install-banner button { background: var(--accent-color); color: var(--light-text); padding: 8px 12px; border-radius: 20px; margin: 0 0 0 10px; width: auto; font-size: 0.9rem; border: 1px solid var(--accent-dark); } 
-        
+
+        .install-banner { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--primary-color); color: white; padding: 12px 15px; display: none; justify-content: space-between; align-items: center; z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); border-top-left-radius: 8px; border-top-right-radius: 8px; text-shadow: var(--text-shadow); }
+        .install-banner button { background: var(--accent-color); color: var(--light-text); padding: 8px 12px; border-radius: 20px; margin: 0 0 0 10px; width: auto; font-size: 0.9rem; border: 1px solid var(--accent-dark); }
+
         @media (display-mode: standalone) { .install-banner { display: none !important; } }
-        
-        @media (max-width: 820px) { 
+
+        @media (max-width: 820px) {
             .main-content-area {
                 flex-direction: column;
-                width: 95%; 
+                width: 95%;
             }
             #left-sidebar-container {
-                flex-direction: column; 
-                flex: 1 1 auto; 
-                position: static; 
+                flex-direction: column;
+                flex: 1 1 auto;
+                position: static;
                 width: 100%;
             }
-            #date-selection-card, #logo-card { 
+            #date-selection-card, #logo-card {
                  width: 100%;
                  margin-bottom: 1.5rem;
             }
-            .month-selector { 
-                 grid-template-columns: 3fr 2fr; 
+            .month-selector {
+                 /* MODIFIED: Adjust grid for mobile, consistent with desktop for month/year sizing */
+                 grid-template-columns: 1fr 60px; /* Month takes flexible space, year fixed at 60px */
             }
         }
-        @media (min-width: 821px) { 
-            .header h1 { font-size: 1.8rem; } 
-            .main-content-area { margin: 2rem auto; } 
+        @media (min-width: 821px) {
+            .header h1 { font-size: 1.8rem; }
+            .main-content-area { margin: 2rem auto; }
         }
 
 
-        .company-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; } 
-         @media (min-width: 480px) and (max-width: 820px) { 
+        .company-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+         @media (min-width: 480px) and (max-width: 820px) {
             .company-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
         }
-        @media (min-width: 821px) { 
+        @media (min-width: 821px) {
              .company-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
         }
-         @media (min-width: 1000px) { 
+         @media (min-width: 1000px) {
              .company-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
         }
 
 
-        .company-card { background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; display: flex; flex-direction: column; box-shadow: var(--card-shadow); } 
+        .company-card { background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; display: flex; flex-direction: column; box-shadow: var(--card-shadow); }
         .company-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 0.8rem 1rem; }
-        
-        .company-card-header h3 { font-size: 1.1rem; font-weight: bold; color: var(--primary-light); display: flex; align-items: center; margin: 0; flex-grow: 1; justify-content: space-between; text-shadow: var(--text-shadow); } 
-        
+
+        .company-card-header h3 { font-size: 1.1rem; font-weight: bold; color: var(--primary-light); display: flex; align-items: center; margin: 0; flex-grow: 1; justify-content: space-between; text-shadow: var(--text-shadow); }
+
         .company-card-header input[type="checkbox"].select-all-company,
         #global-select-all-units-container input[type="checkbox"],
         .unit-list-company li input[type="checkbox"],
         #modal-select-all-company {
-            accent-color: var(--accent-color); 
-            width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; margin-left: 0.5rem; 
-            filter: drop-shadow(0 0 3px var(--accent-color)); 
+            accent-color: var(--accent-color);
+            width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; margin-left: 0.5rem;
+            filter: drop-shadow(0 0 3px var(--accent-color));
         }
-        
-        .unit-list-company { list-style: none; margin: 0; padding: 0.5rem; background-color: rgba(0,0,0,0.1); border-radius: 6px; display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.5rem; } 
-        .unit-list-company li { display: flex; align-items: center; overflow: hidden; font-size: 0.9rem; } 
-        .unit-list-company li label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; flex-grow: 1; font-weight: bold; } 
-        
+
+        .unit-list-company { list-style: none; margin: 0; padding: 0.5rem; background-color: rgba(0,0,0,0.1); border-radius: 6px; display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.5rem; }
+        .unit-list-company li {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            font-size: 0.9rem;
+            padding: 2px 0;
+        }
+        .unit-list-company li label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            flex-grow: 1;
+            font-weight: bold;
+            margin-left: 0.5em;
+        }
+
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
         .generation-buttons-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-        #selected-units-count-display { font-size: 0.95rem; font-weight: bold; color: var(--dark-text); margin-left: 10px; opacity: 0.9; text-shadow: var(--text-shadow); } 
+        #selected-units-count-display { font-size: 0.95rem; font-weight: bold; color: var(--dark-text); margin-left: 10px; opacity: 0.9; text-shadow: var(--text-shadow); }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(10, 15, 26, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease-in-out; } 
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(10, 15, 26, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease-in-out; }
         .modal-overlay.visible { display: flex; opacity: 1; }
-        .modal-dialog { background-color: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90vw; max-width: 700px; height: 85vh; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s ease-in-out; } 
+        .modal-dialog { background-color: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90vw; max-width: 700px; height: 85vh; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s ease-in-out; }
         .modal-overlay.visible .modal-dialog { transform: scale(1); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
-        .modal-header h4 { font-size: 1.3rem; color: var(--primary-light); margin: 0; display: flex; align-items: center; gap: 0.75rem; text-shadow: var(--text-shadow); } 
-        .modal-close-btn { background: none; border: none; color: var(--dark-text); font-size: 2rem; line-height: 1; padding: 0.2rem 0.5rem; margin: 0; cursor: pointer; width: auto; text-shadow: var(--text-shadow); } 
+        .modal-header h4 { font-size: 1.3rem; color: var(--primary-light); margin: 0; display: flex; align-items: center; gap: 0.75rem; text-shadow: var(--text-shadow); }
+        .modal-close-btn { background: none; border: none; color: var(--dark-text); font-size: 2rem; line-height: 1; padding: 0.2rem 0.5rem; margin: 0; cursor: pointer; width: auto; text-shadow: var(--text-shadow); }
         .modal-close-btn:hover { color: var(--primary-light); }
-        .modal-content-scrollable { 
-            flex-grow: 1; 
-            overflow-y: auto; 
-            padding-right: 5px; 
-            -webkit-overflow-scrolling: touch; 
+        .modal-content-scrollable {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            -webkit-overflow-scrolling: touch;
         }
         .modal-footer { padding-top: 1rem; margin-top: 1rem; border-top: 1px solid var(--border-color); text-align: right; }
         .modal-footer button { width: auto; padding: 10px 20px; }
 
         body.screenshot-mode .app-container > *:not(#screenshot-view-content) { display: none !important; }
         body.screenshot-mode { background-color: var(--background); overflow: auto; }
-        #screenshot-view-content { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; width: 100vw; height: 100vh; 
-            background-color: var(--background); 
-            z-index: 2000; 
-            padding: 20px; 
-            overflow-y: auto; 
+        #screenshot-view-content {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--background);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
             box-sizing: border-box;
-            -webkit-overflow-scrolling: touch; /* Added for iOS momentum scroll */
+            -webkit-overflow-scrolling: touch;
         }
         body.screenshot-mode #screenshot-view-content { display: block; }
         #screenshot-header { text-align: center; font-size: 1.5rem; color: var(--primary-light); margin-bottom: 15px; font-weight: bold; text-shadow: var(--text-shadow); }
-        #screenshot-table-container { width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--card-bg); box-shadow: var(--card-shadow); } 
+        #screenshot-table-container { width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--card-bg); box-shadow: var(--card-shadow); }
         #screenshot-table-container table { font-size: 1rem; color: var(--dark-text); }
-        #screenshot-table-container th, #screenshot-table-container td { padding: 12px 15px; border-color: var(--border-color); font-weight: bold; } 
-        #screenshot-table-container th { background-color: rgba(var(--primary-color-rgb, 0,102,255), 0.3); color: var(--primary-light); text-shadow: var(--text-shadow); } 
-        #screenshot-table-container tr:nth-child(even) td { background-color: rgba(var(--accent-color-rgb, 57,255,20), 0.03); } 
-        #close-screenshot-view-btn { position: fixed; top: 20px; right: 20px; z-index: 2010; padding: 10px 15px; background-color: var(--primary-color); color: white; border: 1px solid var(--primary-dark); border-radius: 20px; font-size: 0.9rem; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3); text-shadow: var(--text-shadow); } 
+        #screenshot-table-container th, #screenshot-table-container td { padding: 12px 15px; border-color: var(--border-color); font-weight: bold; }
+        #screenshot-table-container th { background-color: rgba(var(--primary-color-rgb, 0,102,255), 0.3); color: var(--primary-light); text-shadow: var(--text-shadow); }
+        #screenshot-table-container tr:nth-child(even) td { background-color: rgba(var(--accent-color-rgb, 57,255,20), 0.03); }
+        #close-screenshot-view-btn { position: fixed; top: 20px; right: 20px; z-index: 2010; padding: 10px 15px; background-color: var(--primary-color); color: white; border: 1px solid var(--primary-dark); border-radius: 20px; font-size: 0.9rem; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3); text-shadow: var(--text-shadow); }
          body:not(.screenshot-mode) #close-screenshot-view-btn { display: none; }
-        
+
         #matrix-loader-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: rgba(0,0,0,0.85);
-            display: none; 
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 9999;
@@ -405,18 +449,18 @@
         .monitor-screen {
             width: 90vw; height: 80vh;
             max-width: 700px; max-height: 500px;
-            background: #080808; 
-            border: 10px solid #333; 
-            border-radius: 20px; 
-            box-shadow: 
-                inset 0 0 20px rgba(0,0,0,0.7), 
-                0 0 30px rgba(0,0,0,0.5), 
-                0 0 5px 2px #222; 
+            background: #080808;
+            border: 10px solid #333;
+            border-radius: 20px;
+            box-shadow:
+                inset 0 0 20px rgba(0,0,0,0.7),
+                0 0 30px rgba(0,0,0,0.5),
+                0 0 5px 2px #222;
             position: relative;
-            overflow: hidden; 
-            padding: 15px; 
+            overflow: hidden;
+            padding: 15px;
         }
-        .monitor-screen::before { 
+        .monitor-screen::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -435,7 +479,7 @@
         }
         .loader-status-text {
             position: absolute;
-            bottom: 30px; 
+            bottom: 30px;
             left: 30px;
             color: var(--accent-color);
             font-family: 'Courier New', Courier, monospace;
@@ -462,13 +506,13 @@
 <body>
     <div class="app-container">
         <header class="header">
-            <h1>RTS-PIN</h1> 
+            <h1>RTS-PIN</h1>
         </header>
-        
+
         <div class="main-content-area">
             <div id="left-sidebar-container">
                 <div class="card collapsible" id="date-selection-card">
-                    <div class="card-header" role="button" tabindex="0" aria-expanded="true"> 
+                    <div class="card-header" role="button" tabindex="0" aria-expanded="true">
                         <h2><span class="step-number">1</span>Select Date</h2>
                         <span class="toggle-icon" aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
@@ -478,13 +522,9 @@
                         <div class="month-year-selector-container">
                             <button id="prev-month-btn" aria-label="Previous month">‹</button>
                             <div class="month-selector">
-                                <select id="month-select" aria-label="Select month">
-                                    <option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option>
-                                    <option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option>
-                                    <option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option>
-                                </select>
+                                <select id="month-select" aria-label="Select month"></select>
                                 <div class="year-select-wrapper">
-                                    <select id="year-select" aria-label="Select year"></select> 
+                                    <select id="year-select" aria-label="Select year"></select>
                                 </div>
                             </div>
                             <button id="next-month-btn" aria-label="Next month">›</button>
@@ -497,10 +537,10 @@
                         <svg class="rs-letters-animated" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <filter id="neon-glow-rs-filter" x="-50%" y="-50%" width="200%" height="200%">
-                                    <feGaussianBlur stdDeviation="4" result="coloredBlur" in="SourceGraphic" /> 
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur" in="SourceGraphic" />
                                     <feMerge>
-                                        <feMergeNode in="coloredBlur"/> 
-                                        <feMergeNode in="SourceGraphic"/> 
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
                                     </feMerge>
                                 </filter>
                             </defs>
@@ -512,7 +552,7 @@
             </div>
 
             <div id="main-cards-wrapper">
-                <div class="card collapsible main-accordion-card" id="rental-units-card"> 
+                <div class="card collapsible main-accordion-card" id="rental-units-card">
                     <div class="card-header" role="button" tabindex="0" aria-expanded="false">
                         <h2><span class="step-number">2</span>Rental Units</h2>
                         <span class="toggle-icon" aria-hidden="true">
@@ -525,12 +565,11 @@
                             <label for="global-select-all-units-checkbox">Select/Deselect All Units</label>
                         </div>
                         <button id="clear-all-selected-units" class="secondary" style="margin-bottom: 1rem;">Clear All Selections</button>
-                        <p>Click a company to select units, or use the checkbox next to the company name to select all its units.</p>
                         <div id="company-grid-container" class="company-grid"></div>
                     </div>
                 </div>
-                
-                <div class="card collapsible main-accordion-card" id="generate-pins-card"> 
+
+                <div class="card collapsible main-accordion-card" id="generate-pins-card">
                     <div class="card-header" role="button" tabindex="0" aria-expanded="false">
                         <h2>
                             <span class="step-number">3</span>Generate PINs
@@ -549,7 +588,7 @@
                     </div>
                 </div>
 
-                <div class="card collapsible main-accordion-card" id="results-output-card" style="display: none;"> 
+                <div class="card collapsible main-accordion-card" id="results-output-card" style="display: none;">
                     <div class="card-header" role="button" tabindex="0" aria-expanded="false">
                         <h2>Generated PINs</h2>
                         <span class="toggle-icon" aria-hidden="true">
@@ -574,9 +613,9 @@
                         </div>
                     </div>
                 </div>
-            </div> 
-        </div> 
-        
+            </div>
+        </div>
+
         <div class="install-banner" id="install-banner">
             <div>Add to Home Screen for easier access</div>
             <button id="install-button">Add</button>
@@ -601,7 +640,7 @@
 
     <div id="screenshot-view-content">
         <button id="close-screenshot-view-btn">Close View</button>
-        <div id="screenshot-header"></div> 
+        <div id="screenshot-header"></div>
         <div id="screenshot-table-container">
             <table id="screenshot-table">
                 <thead><tr><th>Week</th><th>Unit</th><th>PIN</th></tr></thead>
@@ -618,24 +657,24 @@
     </div>
 
     <script>
-    (function() { 
+    (function() {
         'use strict';
 
         const MAX_PIN_GENERATION_ATTEMPTS = 100000;
-        const STATUS_MESSAGE_TIMEOUT_MS = 5000; 
+        const STATUS_MESSAGE_TIMEOUT_MS = 5000;
         const PIN_LENGTH = 5;
         const PIN_PREFIX_LENGTH = 4;
-        const APP_STORAGE_KEY = 'robsPinBotData_v12'; 
-        const FAILED_PIN_VALUE = "Failed"; 
+        const APP_STORAGE_KEY = 'robsPinBotData_v12';
+        const FAILED_PIN_VALUE = "Failed";
 
         const appState = {
-            newSchedule: [], 
-            usedPINs: new Set(), 
+            newSchedule: [],
+            usedPINs: new Set(),
             deferredPrompt: null,
             allCompanyUnits: [],
             currentModalCompany: null,
         };
-        
+
         const FORBIDDEN_PIN_PREFIXES = new Set([
             "3298", "3230", "3299", "3231", "3300", "3326", "3389", "3232", "3233", "3301", "3302", "3234", "3235", "3390", "3293", "3303",
             "3236", "3304", "3237", "3305", "3306", "3238", "3307", "3239", "3308", "3294", "3391", "3240", "3241", "3309", "3310", "3242",
@@ -659,17 +698,17 @@
             "Other": ["B2H"].sort()
         };
 
-        function hexToRgbArray(hex) { 
+        function hexToRgbArray(hex) {
             let r = 0, g = 0, b = 0;
             hex = hex.replace(/^#/, '');
             if (hex.length === 3) { r = parseInt(hex[0] + hex[0], 16); g = parseInt(hex[1] + hex[1], 16); b = parseInt(hex[2] + hex[2], 16); }
             else if (hex.length === 6) { r = parseInt(hex.substring(0,2), 16); g = parseInt(hex.substring(2,4), 16); b = parseInt(hex.substring(4,6), 16); }
             return [r, g, b];
         }
-        function getMonthName(monthIndex) { 
+        function getMonthName(monthIndex) {
             return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][monthIndex];
         }
-        function populateAllCompanyUnits() { 
+        function populateAllCompanyUnits() {
             const uniqueUnits = new Set();
             for (const company in rentalData) {
                 rentalData[company].forEach(unit => uniqueUnits.add(unit));
@@ -677,40 +716,40 @@
             appState.allCompanyUnits = Array.from(uniqueUnits).sort();
         }
 
-        function saveDataToLocalStorage() { 
+        function saveDataToLocalStorage() {
             try {
                 const currentMonth = document.getElementById('month-select').value;
-                const currentYear = document.getElementById('year-select').value; 
+                const currentYear = document.getElementById('year-select').value;
                 const dataToSave = {
-                    newSchedule: appState.newSchedule, 
-                    usedPINs: Array.from(appState.usedPINs), 
+                    newSchedule: appState.newSchedule,
+                    usedPINs: Array.from(appState.usedPINs),
                     lastMonth: currentMonth,
-                    lastYear: currentYear, 
+                    lastYear: currentYear,
                     selectedUnits: Array.from(document.querySelectorAll('#company-grid-container .unit-checkbox:checked')).map(chk => chk.value)
                 };
                 localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(dataToSave));
-                showStatusMessage('Data saved!', 'success', document.getElementById('parse-status'), 2000); 
+                showStatusMessage('Data saved!', 'success', document.getElementById('parse-status'), 2000);
             } catch (e) {
                 console.error("Error saving data to localStorage:", e);
                 let message = "Could not save data. Storage might be full or disabled.";
-                if (e.name === 'QuotaExceededError' || (e.code && (e.code === 22 || e.code === 1014))) { 
+                if (e.name === 'QuotaExceededError' || (e.code && (e.code === 22 || e.code === 1014))) {
                     message = "Storage limit reached! Cannot save data.";
                 }
                 showStatusMessage(message, 'error', document.getElementById('parse-status'));
             }
         }
 
-        function loadDataForSpecificMonthYear(targetMonth, targetFullYear) { 
+        function loadDataForSpecificMonthYear(targetMonth, targetFullYear) {
             try {
                 const savedDataJSON = localStorage.getItem(APP_STORAGE_KEY);
                 if (savedDataJSON) {
                     const savedData = JSON.parse(savedDataJSON);
-                    if (savedData.lastMonth === targetMonth && savedData.lastYear === targetFullYear) { 
+                    if (savedData.lastMonth === targetMonth && savedData.lastYear === targetFullYear) {
                         appState.newSchedule = savedData.newSchedule || [];
                         appState.usedPINs = new Set(savedData.usedPINs || []);
 
                         if (savedData.selectedUnits && Array.isArray(savedData.selectedUnits)) {
-                            deselectAllUnits(false); 
+                            deselectAllUnits(false);
                             savedData.selectedUnits.forEach(unitValue => {
                                 const mainChk = document.querySelector(`#company-grid-container .unit-checkbox[value="${unitValue}"]`);
                                 if (mainChk) mainChk.checked = true;
@@ -721,7 +760,7 @@
 
                         if (appState.newSchedule.length > 0 && appState.newSchedule.some(w => w && w.length > 0 && w.some(item => item.pin && item.pin !== FAILED_PIN_VALUE))) {
                             showStatusMessage(`Loaded PINs & selections for ${getMonthName(parseInt(targetMonth))} ${targetFullYear}.`, 'info', document.getElementById('parse-status'));
-                            return true; 
+                            return true;
                         } else if (savedData.selectedUnits && savedData.selectedUnits.length > 0) {
                             showStatusMessage(`Loaded unit selections for ${getMonthName(parseInt(targetMonth))} ${targetFullYear}.`, 'info', document.getElementById('parse-status'));
                         }
@@ -730,12 +769,12 @@
             } catch (e) {
                 console.error("Error loading data for specific month/year:", e);
                 showStatusMessage("Could not load saved data. Old data might be incompatible.", 'error', document.getElementById('parse-status'));
-                localStorage.removeItem(APP_STORAGE_KEY); 
+                localStorage.removeItem(APP_STORAGE_KEY);
             }
-            return false; 
+            return false;
         }
-        
-        function updatePrimaryColorRGBVariables() { 
+
+        function updatePrimaryColorRGBVariables() {
             try {
                 const rootStyle = getComputedStyle(document.documentElement);
                 const primaryColorHex = rootStyle.getPropertyValue('--primary-color').trim();
@@ -754,7 +793,7 @@
             } catch (e) { console.error("Error updating CSS RGB variables:", e); }
         }
 
-        function calculateWeekRanges(month, year) { 
+        function calculateWeekRanges(month, year) {
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const monthSpecificRanges = {0: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 31}],1: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: daysInMonth}],2: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 31}],3: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 30}],4: [{start: 1, end: 3}, {start: 4, end: 10}, {start: 11, end: 17}, {start: 18, end: 24}, {start: 25, end: 31}],5: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 30}],6: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 31}],7: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 31}],8: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 30}],9: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 31}],10: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 30}],11: [{start: 1, end: 7}, {start: 8, end: 14}, {start: 15, end: 21}, {start: 22, end: 31}]};
             return monthSpecificRanges[month] || [];
@@ -784,67 +823,67 @@
 
         function updateMonthSelection(isNavigation = false) {
             const selectedMonthValue = document.getElementById('month-select').value;
-            const selectedYearValue = document.getElementById('year-select').value; 
-            
-            if (!isNavigation) { 
+            const selectedYearValue = document.getElementById('year-select').value;
+
+            if (!isNavigation) {
                 appState.newSchedule = [];
                 appState.usedPINs.clear();
             }
-            
+
             const dataLoadedForPINs = loadDataForSpecificMonthYear(selectedMonthValue, selectedYearValue);
 
-            if (!dataLoadedForPINs && !isNavigation) { 
-                 appState.newSchedule = []; 
+            if (!dataLoadedForPINs && !isNavigation) {
+                 appState.newSchedule = [];
                  appState.usedPINs.clear();
                 showStatusMessage(`Ready for ${getMonthName(parseInt(selectedMonthValue))} '${selectedYearValue.substring(2)}.`, 'info', document.getElementById('parse-status'));
             }
 
             const exportCsvButton = document.getElementById('export-csv');
-            const iphoneScreenshotButton = document.getElementById('iphone-screenshot-view'); 
+            const iphoneScreenshotButton = document.getElementById('iphone-screenshot-view');
             const hasValidPinsOnLoad = appState.newSchedule.length > 0 && appState.newSchedule.some(w => w && w.length > 0 && w.some(item => item.pin && item.pin !== FAILED_PIN_VALUE));
 
 
             if (hasValidPinsOnLoad) {
                  displayResults();
                  if (exportCsvButton) exportCsvButton.disabled = false;
-                 if (iphoneScreenshotButton) iphoneScreenshotButton.disabled = false; 
+                 if (iphoneScreenshotButton) iphoneScreenshotButton.disabled = false;
                  document.getElementById('results-output-card').style.display = 'block';
             } else {
-                displayResults(); 
+                displayResults();
                 if (exportCsvButton) exportCsvButton.disabled = true;
-                if (iphoneScreenshotButton) iphoneScreenshotButton.disabled = true; 
+                if (iphoneScreenshotButton) iphoneScreenshotButton.disabled = true;
                 const resultsCard = document.getElementById('results-output-card');
-                if (!resultsCard.classList.contains('expanded')) { 
+                if (!resultsCard.classList.contains('expanded')) {
                     resultsCard.style.display = 'none';
-                } else { 
-                     resultsCard.style.display = 'block'; 
+                } else {
+                     resultsCard.style.display = 'block';
                 }
             }
-            
+
             updateSelectedUnitsCountDisplay();
-             if (isNavigation || (!dataLoadedForPINs && !(localStorage.getItem(APP_STORAGE_KEY) && JSON.parse(localStorage.getItem(APP_STORAGE_KEY)).lastMonth === selectedMonthValue && JSON.parse(localStorage.getItem(APP_STORAGE_KEY)).lastYear === selectedYearValue && JSON.parse(localStorage.getItem(APP_STORAGE_KEY)).selectedUnits?.length > 0) ) ) { 
+             if (isNavigation || (!dataLoadedForPINs && !(localStorage.getItem(APP_STORAGE_KEY) && JSON.parse(localStorage.getItem(APP_STORAGE_KEY)).lastMonth === selectedMonthValue && JSON.parse(localStorage.getItem(APP_STORAGE_KEY)).lastYear === selectedYearValue && JSON.parse(localStorage.getItem(APP_STORAGE_KEY)).selectedUnits?.length > 0) ) ) {
                 saveDataToLocalStorage();
             }
         }
 
         function generateRandomPINValue() { return Math.floor(10000 + Math.random() * 90000); }
-        
+
         function generateUniquePIN() {
             let newPIN;
             let attempts = 0;
             while (attempts < MAX_PIN_GENERATION_ATTEMPTS) {
                 newPIN = generateRandomPINValue();
                 const pinStr = newPIN.toString();
-                if (pinStr.length !== PIN_LENGTH) continue; 
+                if (pinStr.length !== PIN_LENGTH) continue;
                 const pinPrefix = pinStr.substring(0, PIN_PREFIX_LENGTH);
                 if (!appState.usedPINs.has(newPIN) && !FORBIDDEN_PIN_PREFIXES.has(pinPrefix)) {
                     appState.usedPINs.add(newPIN);
-                    return newPIN; 
+                    return newPIN;
                 }
                 attempts++;
             }
             console.error(`CRITICAL: Unable to generate a valid PIN after ${MAX_PIN_GENERATION_ATTEMPTS} attempts!`);
-            return null; 
+            return null;
         }
 
         const matrixLoaderOverlay = document.getElementById('matrix-loader-overlay');
@@ -855,22 +894,22 @@
         function setupMatrix() {
             if (!matrixCanvas) return;
             matrixCtx = matrixCanvas.getContext('2d');
-            matrixCanvas.width = matrixCanvas.offsetWidth; 
+            matrixCanvas.width = matrixCanvas.offsetWidth;
             matrixCanvas.height = matrixCanvas.offsetHeight;
             const fontSize = 16;
             matrixCols = Math.floor(matrixCanvas.width / fontSize);
             matrixDrops = [];
             for (let i = 0; i < matrixCols; i++) {
-                matrixDrops[i] = 1 + Math.random() * matrixCanvas.height; 
+                matrixDrops[i] = 1 + Math.random() * matrixCanvas.height;
             }
             matrixCtx.font = `${fontSize}px monospace`;
         }
 
         function drawMatrix() {
             if (!matrixCtx) return;
-            matrixCtx.fillStyle = 'rgba(10, 15, 26, 0.1)'; 
+            matrixCtx.fillStyle = 'rgba(10, 15, 26, 0.1)';
             matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim(); 
+            matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
             const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
             const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             const nums = '0123456789';
@@ -879,19 +918,19 @@
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 matrixCtx.fillText(text, i * 16, matrixDrops[i] * 16);
                 if (matrixDrops[i] * 16 > matrixCanvas.height && Math.random() > 0.975) {
-                    matrixDrops[i] = 0; 
+                    matrixDrops[i] = 0;
                 }
                 matrixDrops[i]++;
             }
         }
-        
+
         function showMatrixLoader(text = "PROCESSING...") {
             if (!matrixLoaderOverlay || !matrixCanvas) return;
             loaderStatusText.textContent = text;
             matrixLoaderOverlay.classList.add('visible');
-            setupMatrix(); 
+            setupMatrix();
             if (matrixInterval) clearInterval(matrixInterval);
-            matrixInterval = setInterval(drawMatrix, 50); 
+            matrixInterval = setInterval(drawMatrix, 50);
         }
 
         function hideMatrixLoader() {
@@ -899,8 +938,8 @@
             matrixLoaderOverlay.classList.remove('visible');
             if (matrixInterval) clearInterval(matrixInterval);
         }
-        
-        async function generateCorePINs(unitsForGeneration, buttonElement, operationName) { 
+
+        async function generateCorePINs(unitsForGeneration, buttonElement, operationName) {
             if (unitsForGeneration.length === 0) {
                 showStatusMessage('No units to generate PINs for.', 'warning', document.getElementById('parse-status'));
                 if (buttonElement) {
@@ -910,9 +949,9 @@
                 }
                 return;
             }
-            
+
             showMatrixLoader(`GENERATING PINS FOR ${operationName.toUpperCase()}...`);
-            if (buttonElement) { 
+            if (buttonElement) {
                  buttonElement.dataset.originalText = buttonElement.textContent;
                  const loadingSpan = document.createElement('span');
                  loadingSpan.className = 'loading';
@@ -923,10 +962,30 @@
             }
 
             await new Promise(resolve => setTimeout(resolve, 100));
-            appState.newSchedule = []; 
-            appState.usedPINs.clear(); 
-            const month = parseInt(document.getElementById('month-select').value);
-            const year = parseInt(document.getElementById('year-select').value); 
+            appState.newSchedule = [];
+            appState.usedPINs.clear();
+
+            const monthSelectElement = document.getElementById('month-select');
+            const yearSelectElement = document.getElementById('year-select');
+
+            if (!monthSelectElement) {
+                console.error("CRITICAL ERROR: Could not find month select element with ID 'month-select'.");
+                showStatusMessage("Error: Date selection component missing. Cannot generate PINs.", 'error', document.getElementById('parse-status'));
+                hideMatrixLoader();
+                if (buttonElement) restoreLoadingButton(buttonElement);
+                return;
+            }
+            if (!yearSelectElement) {
+                console.error("CRITICAL ERROR: Could not find year select element with ID 'year-select'.");
+                showStatusMessage("Error: Date selection component missing. Cannot generate PINs.", 'error', document.getElementById('parse-status'));
+                hideMatrixLoader();
+                if (buttonElement) restoreLoadingButton(buttonElement);
+                return;
+            }
+
+            const month = parseInt(monthSelectElement.value);
+            const year = parseInt(yearSelectElement.value);
+
             const weekRanges = calculateWeekRanges(month, year);
             let allPinsGeneratedSuccessfully = true;
 
@@ -935,20 +994,20 @@
                 for (const unitName of unitsForGeneration) {
                     const generatedPin = generateUniquePIN();
                     if (generatedPin === null) {
-                        allPinsGeneratedSuccessfully = false; 
+                        allPinsGeneratedSuccessfully = false;
                     }
                     newWeekData.push({
                         unit: unitName,
                         weekIndex: weekRanges.indexOf(range),
                         dateRange: `${range.start}-${range.end}`,
-                        pin: generatedPin === null ? FAILED_PIN_VALUE : generatedPin 
+                        pin: generatedPin === null ? FAILED_PIN_VALUE : generatedPin
                     });
                 }
                 if (newWeekData.length > 0) {
                     appState.newSchedule.push(newWeekData);
                 }
             }
-            
+
             hideMatrixLoader();
             if (buttonElement) restoreLoadingButton(buttonElement);
             const hasValidPins = appState.newSchedule.some(w => w && w.length > 0 && w.some(item => item.pin !== FAILED_PIN_VALUE));
@@ -961,27 +1020,27 @@
             } else {
                 showStatusMessage(`${unitsForGeneration.length} unit(s) processed. PINs generated!`, 'success', document.getElementById('parse-status'));
             }
-            
-            saveDataToLocalStorage(); 
+
+            saveDataToLocalStorage();
             const resultsCard = document.getElementById('results-output-card');
             resultsCard.style.display = 'block';
-            if (!resultsCard.classList.contains('expanded') && resultsCard.classList.contains('main-accordion-card')) { 
-                resultsCard.querySelector('.card-header').click(); 
+            if (!resultsCard.classList.contains('expanded') && resultsCard.classList.contains('main-accordion-card')) {
+                resultsCard.querySelector('.card-header').click();
             }
         }
-        
-        function restoreLoadingButton(button) { 
+
+        function restoreLoadingButton(button) {
             if (button.dataset.originalText) {
                 button.textContent = button.dataset.originalText;
             }
             button.disabled = false;
         }
 
-        function generateAllUnitsPINs() { 
+        function generateAllUnitsPINs() {
             const btn = document.getElementById('generate-all-units-pins');
             generateCorePINs(appState.allCompanyUnits, btn, "All Units");
         }
-        function generateSelectedUnitsPINs() { 
+        function generateSelectedUnitsPINs() {
             const btn = document.getElementById('generate-selected-units-pins');
             const currentlySelectedUnits = [];
             document.querySelectorAll('#company-grid-container .unit-checkbox:checked').forEach(chk => {
@@ -995,13 +1054,13 @@
                 btn.classList.add('shake-button', 'button-warn-pulse');
                 setTimeout(() => {
                     btn.classList.remove('shake-button', 'button-warn-pulse');
-                }, 1500); 
+                }, 1500);
                 return;
             }
             generateCorePINs(currentlySelectedUnits, btn, "Selected Units");
         }
 
-        function displayResults() { 
+        function displayResults() {
             const tableBody = document.getElementById('results-table').getElementsByTagName('tbody')[0];
             const tableElement = document.getElementById('results-table');
             const noResultsMsg = document.getElementById('no-results-message');
@@ -1013,7 +1072,7 @@
                     if (week) week.forEach(item => { if (item && (item.pin || item.pin === FAILED_PIN_VALUE)) flatResults.push(item); });
                 });
             }
-            
+
             const exportCsvButton = document.getElementById('export-csv');
             const iphoneScreenshotButton = document.getElementById('iphone-screenshot-view');
             const hasValidPins = flatResults.some(item => item.pin !== FAILED_PIN_VALUE);
@@ -1048,7 +1107,7 @@
 
                 const pinCell = row.insertCell(2);
                 pinCell.className = 'pin-cell';
-                
+
                 if (item.pin === FAILED_PIN_VALUE) {
                     pinCell.textContent = FAILED_PIN_VALUE;
                     pinCell.classList.add('pin-failed');
@@ -1067,7 +1126,7 @@
                 }
             });
         }
-        function copyPinToClipboard(pin, buttonElement) { 
+        function copyPinToClipboard(pin, buttonElement) {
             if (!navigator.clipboard) {
                 showStatusMessage('Clipboard API not available.', 'error', document.getElementById('parse-status'));
                 return;
@@ -1085,13 +1144,13 @@
                 showStatusMessage('Failed to copy PIN.', 'error', document.getElementById('parse-status'));
             });
         }
-        function showStatusMessage(message, type, element, timeout = STATUS_MESSAGE_TIMEOUT_MS) { 
+        function showStatusMessage(message, type, element, timeout = STATUS_MESSAGE_TIMEOUT_MS) {
             if (element.classList.contains('error') && (type === 'success' || type === 'info')) {
                 console.log(`Status update (${type}): ${message} (Not shown due to existing error)`);
-                return; 
+                return;
             }
             element.textContent = message;
-            element.className = `status ${type}`; 
+            element.className = `status ${type}`;
             element.style.display = 'block';
             if (type === 'success' || type === 'info') {
                 setTimeout(() => {
@@ -1101,9 +1160,9 @@
                 }, timeout);
             }
         }
-        function exportAsCSV() { 
+        function exportAsCSV() {
             const month = parseInt(document.getElementById('month-select').value);
-            const year = parseInt(document.getElementById('year-select').value); 
+            const year = parseInt(document.getElementById('year-select').value);
             const monthName = getMonthName(month);
             let csvContent = "Date Range,Unit,PIN\n";
             const flatResults = [];
@@ -1113,11 +1172,11 @@
                 const [startDay, endDay] = item.dateRange.split('-');
                 csvContent += `"${monthName} ${startDay}-${endDay}","${item.unit}","${item.pin}"\n`;
             });
-            downloadFile(csvContent, `unit_pins_${monthName}_${year.toString().substring(2)}.csv`, 'text/csv;charset=utf-8;'); 
+            downloadFile(csvContent, `unit_pins_${monthName}_${year.toString().substring(2)}.csv`, 'text/csv;charset=utf-8;');
             showStatusMessage('CSV exported!', 'success', document.getElementById('parse-status'));
         }
 
-        function downloadFile(content, fileName, contentType) { 
+        function downloadFile(content, fileName, contentType) {
             const blob = new Blob([content], { type: contentType });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1128,9 +1187,9 @@
         function populateScreenshotTable() {
             const screenshotTableBody = document.getElementById('screenshot-table').getElementsByTagName('tbody')[0];
             const screenshotHeader = document.getElementById('screenshot-header');
-            screenshotTableBody.innerHTML = ''; 
+            screenshotTableBody.innerHTML = '';
             const month = parseInt(document.getElementById('month-select').value);
-            const year = parseInt(document.getElementById('year-select').value); 
+            const year = parseInt(document.getElementById('year-select').value);
             const monthName = getMonthName(month);
             screenshotHeader.textContent = `${monthName} ${year}`;
 
@@ -1149,8 +1208,8 @@
                 cell.style.textAlign = 'center';
                 return;
             }
-            
-            flatResults.sort((a, b) => { 
+
+            flatResults.sort((a, b) => {
                 if (a.weekIndex !== b.weekIndex) return a.weekIndex - b.weekIndex;
                 return a.unit.localeCompare(b.unit);
             });
@@ -1158,7 +1217,7 @@
             flatResults.forEach(item => {
                 const row = screenshotTableBody.insertRow();
                 const [startDay, endDay] = item.dateRange.split('-');
-                row.insertCell(0).textContent = `Wk ${startDay}-${endDay}`; 
+                row.insertCell(0).textContent = `Wk ${startDay}-${endDay}`;
                 row.insertCell(1).textContent = item.unit;
                 row.insertCell(2).textContent = item.pin;
                 if(item.pin === FAILED_PIN_VALUE) row.cells[2].classList.add('pin-failed');
@@ -1180,7 +1239,7 @@
             document.getElementById('close-screenshot-view-btn').style.display = 'none';
         }
 
-        function setupPWA() { 
+        function setupPWA() {
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault(); appState.deferredPrompt = e;
                 document.getElementById('install-banner').style.display = 'flex';
@@ -1192,7 +1251,7 @@
             });
             if (window.matchMedia('(display-mode: standalone)').matches) document.getElementById('install-banner').style.display = 'none';
         }
-        
+
         function setupCollapsibleSections() {
             const allCards = document.querySelectorAll('.card.collapsible');
             const mainAccordionCards = document.querySelectorAll('.main-accordion-card.collapsible');
@@ -1207,20 +1266,29 @@
 
                 let isInitiallyExpanded = false;
                 if (card.id === 'date-selection-card') {
-                    isInitiallyExpanded = true; 
-                } else if (card.id === 'results-output-card' && 
-                           appState.newSchedule && appState.newSchedule.length > 0 && 
+                    isInitiallyExpanded = true;
+                } else if (card.id === 'results-output-card' &&
+                           appState.newSchedule && appState.newSchedule.length > 0 &&
                            appState.newSchedule.some(w => w && w.length > 0 && w.some(item => item.pin && item.pin !== FAILED_PIN_VALUE))) {
                     isInitiallyExpanded = true;
-                    if (rentalUnitsCard) rentalUnitsCard.classList.remove('expanded');
-                    if (generatePinsCard) generatePinsCard.classList.remove('expanded');
+                    if (rentalUnitsCard && rentalUnitsCard.classList.contains('expanded')) {
+                        rentalUnitsCard.classList.remove('expanded');
+                        rentalUnitsCard.querySelector('.card-header').setAttribute('aria-expanded', 'false');
+                        const rentalContent = rentalUnitsCard.querySelector('.card-content'); if(rentalContent){rentalContent.style.maxHeight='0'; rentalContent.style.opacity='0'; rentalContent.style.paddingTop='0';}
+                    }
+                    if (generatePinsCard && generatePinsCard.classList.contains('expanded')) {
+                        generatePinsCard.classList.remove('expanded');
+                        generatePinsCard.querySelector('.card-header').setAttribute('aria-expanded', 'false');
+                        const generateContent = generatePinsCard.querySelector('.card-content'); if(generateContent){generateContent.style.maxHeight='0'; generateContent.style.opacity='0'; generateContent.style.paddingTop='0';}
+                    }
                 } else if (card.id === 'rental-units-card') {
                     const resultsAreValidAndShown = resultsCard && resultsCard.style.display !== 'none' && resultsCard.classList.contains('expanded') && appState.newSchedule.some(w => w && w.length > 0 && w.some(item => item.pin && item.pin !== FAILED_PIN_VALUE));
-                    isInitiallyExpanded = !resultsAreValidAndShown;
+                    const parseStatus = document.getElementById('parse-status');
+                    isInitiallyExpanded = !resultsAreValidAndShown && !(parseStatus && parseStatus.classList.contains('error'));
                 } else if (card.id === 'generate-pins-card') {
-                    isInitiallyExpanded = false; 
+                    isInitiallyExpanded = false;
                 }
-                
+
                 if (isInitiallyExpanded) {
                     card.classList.add('expanded');
                     header.setAttribute('aria-expanded', 'true');
@@ -1275,7 +1343,7 @@
         }
 
 
-        function updateParentCheckboxState(parentCheckbox, childCheckboxesNodeList) { 
+        function updateParentCheckboxState(parentCheckbox, childCheckboxesNodeList) {
             if (!parentCheckbox) return;
             const childCheckboxes = Array.from(childCheckboxesNodeList);
             if (childCheckboxes.length === 0) {
@@ -1295,37 +1363,37 @@
                 parentCheckbox.checked = false;
                 parentCheckbox.indeterminate = true;
             }
-            updateSelectedUnitsCountDisplay(); 
+            updateSelectedUnitsCountDisplay();
         }
 
-        function buildCompanyCards() { 
+        function buildCompanyCards() {
             const container = document.getElementById('company-grid-container');
             container.innerHTML = '';
             Object.keys(rentalData).forEach(companyName => {
                 const companyCard = document.createElement('div');
                 companyCard.className = 'company-card';
                 companyCard.dataset.company = companyName;
-                const headerElement = document.createElement('div'); 
+                const headerElement = document.createElement('div');
                 headerElement.className = 'company-card-header';
                 headerElement.setAttribute('role', 'button');
                 headerElement.setAttribute('tabindex', '0');
                 headerElement.setAttribute('aria-label', `View units for ${companyName}`);
                 const title = document.createElement('h3');
-                const companySelectAllCheckbox = document.createElement('input'); 
+                const companySelectAllCheckbox = document.createElement('input');
                 companySelectAllCheckbox.type = 'checkbox';
                 companySelectAllCheckbox.className = 'select-all-company';
                 companySelectAllCheckbox.title = `Select all units for ${companyName}`;
                 companySelectAllCheckbox.setAttribute('aria-label', `Select all units for ${companyName}`);
-                companySelectAllCheckbox.dataset.companyForCheckbox = companyName; 
+                companySelectAllCheckbox.dataset.companyForCheckbox = companyName;
                 companySelectAllCheckbox.addEventListener('change', (e) => {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     const isNowChecked = e.target.checked;
                     const company = e.target.dataset.companyForCheckbox;
                     const thisCompanyCard = document.querySelector(`.company-card[data-company="${company}"]`);
                     if (!thisCompanyCard) return;
                     const hiddenUnitCheckboxesInThisCard = thisCompanyCard.querySelectorAll('.unit-checkbox');
                     hiddenUnitCheckboxesInThisCard.forEach(chk => { chk.checked = isNowChecked; });
-                    e.target.indeterminate = false; 
+                    e.target.indeterminate = false;
                     if (appState.currentModalCompany === company) {
                         const modalUnitCheckboxes = document.querySelectorAll('#modal-units-list-container .unit-checkbox');
                         modalUnitCheckboxes.forEach(modalChk => modalChk.checked = isNowChecked);
@@ -1336,28 +1404,28 @@
                         }
                     }
                     updateSelectedUnitsCountDisplay();
-                    saveDataToLocalStorage(); 
+                    saveDataToLocalStorage();
                 });
                 title.appendChild(document.createTextNode(companyName));
-                title.appendChild(companySelectAllCheckbox); 
+                title.appendChild(companySelectAllCheckbox);
                 headerElement.appendChild(title);
                 const hiddenUnitList = document.createElement('div');
-                hiddenUnitList.style.display = 'none'; 
+                hiddenUnitList.style.display = 'none';
                 rentalData[companyName].forEach(unitName => {
                     const unitCheckbox = document.createElement('input');
                     unitCheckbox.type = 'checkbox';
-                    unitCheckbox.className = 'unit-checkbox'; 
+                    unitCheckbox.className = 'unit-checkbox';
                     unitCheckbox.value = unitName;
                     unitCheckbox.id = `main-chk-${companyName.replace(/\s+/g, '-')}-${unitName}`;
                     unitCheckbox.addEventListener('change', () => {
                         updateParentCheckboxState(companySelectAllCheckbox, hiddenUnitList.querySelectorAll('.unit-checkbox'));
-                         saveDataToLocalStorage(); 
+                         saveDataToLocalStorage();
                     });
                     hiddenUnitList.appendChild(unitCheckbox);
                 });
                 companyCard.appendChild(hiddenUnitList);
                 headerElement.addEventListener('click', (e) => {
-                    if (e.target.type === 'checkbox' || e.target.classList.contains('select-all-company')) return; 
+                    if (e.target.type === 'checkbox' || e.target.classList.contains('select-all-company')) return;
                     openCompanyModal(companyName);
                 });
                 headerElement.addEventListener('keydown', (e) => {
@@ -1371,10 +1439,10 @@
                 container.appendChild(companyCard);
                 updateParentCheckboxState(companySelectAllCheckbox, hiddenUnitList.querySelectorAll('.unit-checkbox'));
             });
-            updateSelectedUnitsCountDisplay(); 
+            updateSelectedUnitsCountDisplay();
         }
 
-        function openCompanyModal(companyName) { 
+        function openCompanyModal(companyName) {
             appState.currentModalCompany = companyName;
             const modal = document.getElementById('company-units-modal');
             const modalCompanyNameText = document.getElementById('modal-company-name-text');
@@ -1391,7 +1459,7 @@
                 unitCheckboxInModal.type = 'checkbox';
                 unitCheckboxInModal.value = unitName;
                 unitCheckboxInModal.id = `modal-chk-${companyName.replace(/\s+/g, '-')}-${unitName}`;
-                unitCheckboxInModal.className = 'unit-checkbox'; 
+                unitCheckboxInModal.className = 'unit-checkbox';
                 const mainCheckbox = document.getElementById(`main-chk-${companyName.replace(/\s+/g, '-')}-${unitName}`);
                 if (mainCheckbox) unitCheckboxInModal.checked = mainCheckbox.checked;
                 unitCheckboxInModal.addEventListener('change', (e) => {
@@ -1399,7 +1467,7 @@
                     const allModalCheckboxes = modalUnitsContainer.querySelectorAll('.unit-checkbox');
                     updateParentCheckboxState(modalSelectAllCheckbox, allModalCheckboxes);
                     const mainGridSelectAllForCompany = document.querySelector(`.company-card[data-company="${companyName}"] .select-all-company`);
-                    const mainGridUnitCheckboxesForCompany = document.querySelectorAll(`.company-card[data-company="${companyName}"] .unit-checkbox`); 
+                    const mainGridUnitCheckboxesForCompany = document.querySelectorAll(`.company-card[data-company="${companyName}"] .unit-checkbox`);
                     updateParentCheckboxState(mainGridSelectAllForCompany, mainGridUnitCheckboxesForCompany);
                 });
                 const unitLabel = document.createElement('label');
@@ -1415,23 +1483,23 @@
             modal.classList.add('visible');
         }
 
-        function closeModal() { 
+        function closeModal() {
             const modal = document.getElementById('company-units-modal');
             modal.classList.remove('visible');
             updateSelectedUnitsCountDisplay();
-            saveDataToLocalStorage(); 
+            saveDataToLocalStorage();
             appState.currentModalCompany = null;
         }
-        
+
         function deselectAllUnits(showMessage = true) {
-            const allUnitCheckboxes = document.querySelectorAll('#company-grid-container .unit-checkbox'); 
+            const allUnitCheckboxes = document.querySelectorAll('#company-grid-container .unit-checkbox');
             allUnitCheckboxes.forEach(chk => chk.checked = false);
             const allCompanySelectAllCheckboxes = document.querySelectorAll('#company-grid-container .select-all-company');
             allCompanySelectAllCheckboxes.forEach(chk => {
                 chk.checked = false;
                 chk.indeterminate = false;
             });
-            if (appState.currentModalCompany) { 
+            if (appState.currentModalCompany) {
                 const modalUnitCheckboxes = document.querySelectorAll('#modal-units-list-container .unit-checkbox');
                 modalUnitCheckboxes.forEach(modalChk => modalChk.checked = false);
                 const modalSelectAll = document.getElementById('modal-select-all-company');
@@ -1440,7 +1508,7 @@
                     modalSelectAll.indeterminate = false;
                 }
             }
-            updateSelectedUnitsCountDisplay(); 
+            updateSelectedUnitsCountDisplay();
             if (showMessage) {
                 showStatusMessage('All unit selections cleared.', 'info', document.getElementById('parse-status'));
             }
@@ -1457,26 +1525,38 @@
             });
         }
 
+        function populateMonthDropdown() {
+            const monthSelect = document.getElementById('month-select');
+            monthSelect.innerHTML = '';
+            const monthNames = getMonthName(); // Get the array of month names
+            for (let i = 0; i < 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = (i + 1).toString(); // Display 1-12
+                monthSelect.appendChild(option);
+            }
+        }
+
         function populateYearDropdown() {
             const yearSelect = document.getElementById('year-select');
-            yearSelect.innerHTML = ''; 
+            yearSelect.innerHTML = '';
             const currentFullYear = new Date().getFullYear();
-            const yearsToShow = [-1, 0, 1, 2, 3]; 
+            const yearsToShow = [-1, 0, 1, 2, 3];
             yearsToShow.forEach(offset => {
                 const fullYear = currentFullYear + offset;
                 const shortYear = fullYear.toString().substring(2);
                 const option = document.createElement('option');
-                option.value = fullYear; 
-                option.textContent = shortYear; 
+                option.value = fullYear;
+                option.textContent = shortYear;
                 yearSelect.appendChild(option);
             });
         }
-        
+
         function resetApplicationState() {
             appState.newSchedule = [];
             appState.usedPINs.clear();
-            deselectAllUnits(false); 
-            
+            deselectAllUnits(false);
+
             const tableBody = document.getElementById('results-table').getElementsByTagName('tbody')[0];
             const tableElement = document.getElementById('results-table');
             const noResultsMsg = document.getElementById('no-results-message');
@@ -1486,29 +1566,29 @@
 
             document.getElementById('export-csv').disabled = true;
             document.getElementById('iphone-screenshot-view').disabled = true;
-            
+
             const resultsCard = document.getElementById('results-output-card');
-            const unitsCard = document.getElementById('rental-units-card'); 
-            const generatePinsCard = document.getElementById('generate-pins-card'); 
+            const unitsCard = document.getElementById('rental-units-card');
+            const generatePinsCard = document.getElementById('generate-pins-card');
 
             if (resultsCard.classList.contains('expanded')) {
-                resultsCard.querySelector('.card-header').click(); 
+                resultsCard.querySelector('.card-header').click();
             }
-             resultsCard.style.display = 'none'; 
+             resultsCard.style.display = 'none';
 
             if (unitsCard && !unitsCard.classList.contains('expanded')) {
-                unitsCard.querySelector('.card-header').click(); 
+                unitsCard.querySelector('.card-header').click();
             }
              if (generatePinsCard && generatePinsCard.classList.contains('expanded')) {
-                generatePinsCard.querySelector('.card-header').click(); 
+                generatePinsCard.querySelector('.card-header').click();
             }
 
             showStatusMessage('Application reset. Ready for new PIN generation.', 'info', document.getElementById('parse-status'));
-            saveDataToLocalStorage(); 
+            saveDataToLocalStorage();
         }
 
 
-        function addEventListeners() { 
+        function addEventListeners() {
             document.getElementById('generate-all-units-pins').addEventListener('click', generateAllUnitsPINs);
             document.getElementById('generate-selected-units-pins').addEventListener('click', generateSelectedUnitsPINs);
             document.getElementById('export-csv').addEventListener('click', exportAsCSV);
@@ -1520,9 +1600,9 @@
             document.getElementById('year-select').addEventListener('change', () => updateMonthSelection());
             document.getElementById('clear-all-selected-units').addEventListener('click', () => {
                 deselectAllUnits(true);
-                saveDataToLocalStorage(); 
+                saveDataToLocalStorage();
             });
-            
+
             document.getElementById('logo-card').addEventListener('click', resetApplicationState);
             document.getElementById('logo-card').addEventListener('keydown', (e) => {
                  if (e.key === 'Enter' || e.key === ' ') {
@@ -1540,7 +1620,7 @@
                     companyChk.checked = isChecked;
                     companyChk.indeterminate = false;
                 });
-                if (appState.currentModalCompany) { 
+                if (appState.currentModalCompany) {
                     const modalUnitCheckboxes = document.querySelectorAll('#modal-units-list-container .unit-checkbox');
                     modalUnitCheckboxes.forEach(modalChk => modalChk.checked = isChecked);
                     const modalSelectAllHeader = document.getElementById('modal-select-all-company');
@@ -1550,7 +1630,7 @@
                     }
                 }
                 updateSelectedUnitsCountDisplay();
-                saveDataToLocalStorage(); 
+                saveDataToLocalStorage();
             });
             document.getElementById('modal-close-button').addEventListener('click', closeModal);
             document.getElementById('modal-confirm-button').addEventListener('click', () => {
@@ -1560,7 +1640,7 @@
                         showStatusMessage(`${appState.currentModalCompany} selections confirmed.`, 'info', statusElement, 2000);
                     }
                 }
-                closeModal(); 
+                closeModal();
             });
             document.getElementById('company-units-modal').addEventListener('click', (e) => {
                 if (e.target.id === 'company-units-modal') { closeModal(); }
@@ -1577,7 +1657,7 @@
                 if (appState.currentModalCompany) {
                     const mainGridSelectAll = document.querySelector(`.company-card[data-company="${appState.currentModalCompany}"] .select-all-company`);
                     const mainGridUnitCheckboxes = document.querySelectorAll(`.company-card[data-company="${appState.currentModalCompany}"] .unit-checkbox`);
-                    updateParentCheckboxState(mainGridSelectAll, mainGridUnitCheckboxes); 
+                    updateParentCheckboxState(mainGridSelectAll, mainGridUnitCheckboxes);
                 }
             });
             const forms = document.querySelectorAll('form');
@@ -1589,7 +1669,7 @@
             const monthSelect = document.getElementById('month-select');
             const yearSelect = document.getElementById('year-select');
             let currentMonth = parseInt(monthSelect.value);
-            let currentFullYear = parseInt(yearSelect.value); 
+            let currentFullYear = parseInt(yearSelect.value);
             currentMonth += direction;
             if (currentMonth < 0) {
                 currentMonth = 11;
@@ -1600,47 +1680,48 @@
             }
             let yearOptionExists = false;
             for (let option of yearSelect.options) {
-                if (parseInt(option.value) === currentFullYear) { 
+                if (parseInt(option.value) === currentFullYear) {
                     yearOptionExists = true;
                     break;
                 }
             }
-            if (!yearOptionExists) { 
+            if (!yearOptionExists) {
                 showStatusMessage("Reached year limit.", "info", document.getElementById('parse-status'), 2000);
-                return; 
+                return;
             }
-            yearSelect.value = currentFullYear; 
+            yearSelect.value = currentFullYear;
             monthSelect.value = currentMonth;
-            updateMonthSelection(true); 
+            updateMonthSelection(true);
         }
-        
+
         function initializeApp() {
-            updatePrimaryColorRGBVariables(); 
-            populateYearDropdown(); 
+            updatePrimaryColorRGBVariables();
+            populateMonthDropdown();
+            populateYearDropdown();
             populateAllCompanyUnits();
-            buildCompanyCards(); 
+            buildCompanyCards();
 
             const now = new Date();
-            let initialMonthFromStorage = now.getMonth().toString(); 
-            let initialYearFromStorage = now.getFullYear().toString(); 
-            
+            let initialMonthFromStorage = now.getMonth().toString();
+            let initialYearFromStorage = now.getFullYear().toString();
+
             try {
                 const savedDataJSON = localStorage.getItem(APP_STORAGE_KEY);
                 if (savedDataJSON) {
                     const savedData = JSON.parse(savedDataJSON);
                     if (savedData.lastMonth) initialMonthFromStorage = savedData.lastMonth;
-                    if (savedData.lastYear) initialYearFromStorage = savedData.lastYear; 
+                    if (savedData.lastYear) initialYearFromStorage = savedData.lastYear;
                 }
             } catch (e) { console.error("Error reading initial localStorage data:", e); }
-            
+
             document.getElementById('month-select').value = initialMonthFromStorage;
-            document.getElementById('year-select').value = initialYearFromStorage; 
-            
-            updateMonthSelection(); 
-            setupCollapsibleSections(); 
+            document.getElementById('year-select').value = initialYearFromStorage;
+
+            updateMonthSelection();
+            setupCollapsibleSections();
             addEventListeners();
             setupPWA();
-            
+
             const resultsCard = document.getElementById('results-output-card');
             const statusElement = document.getElementById('parse-status');
             const hasValidPinsOnLoad = appState.newSchedule.length > 0 && appState.newSchedule.some(w => w && w.length > 0 && w.some(item => item.pin && item.pin !== FAILED_PIN_VALUE));
@@ -1648,13 +1729,14 @@
             if (!hasValidPinsOnLoad && (statusElement.style.display === 'none' || (!statusElement.classList.contains('error') && !statusElement.classList.contains('info')) ) ) {
                  showStatusMessage('Welcome! Select date, units, then generate.', 'info', statusElement);
             }
-            syncAllCompanySelectAllCheckboxes(); 
-            updateSelectedUnitsCountDisplay(); 
+            syncAllCompanySelectAllCheckboxes();
+            updateSelectedUnitsCountDisplay();
         }
 
         document.addEventListener('DOMContentLoaded', initializeApp);
 
-    })(); 
+    })();
     </script>
 </body>
 </html>
+```
