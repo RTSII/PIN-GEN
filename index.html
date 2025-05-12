@@ -1,24 +1,14 @@
-Okay, I can help you with these changes!
-
-Here's the plan:
-
-1.  **Change Header Font Colors**: I'll modify the CSS to target the `<h2>` text within the headers of the cards "Select Date", "Rental Units", and "Generate PINs" (cards with IDs `date-selection-card`, `rental-units-card`, and `generate-pins-card`) and set their color to `var(--accent-color)`. The step numbers and selected unit counts should retain their original colors due to their own specific styling.
-2.  **Update Unit Name**: In the `rentalData` JavaScript object, I'll find the "Dieter" company's array of units and change "CR ROOM" to "BCR". The existing `.sort()` method on that array will ensure "BCR" is placed in the correct alphabetical order.
-3.  **Add Neon Green Border to Cards**:
-    *   I'll change the `border` property for `.card`, `.company-card`, and `#screenshot-table-container` to use `1px solid var(--accent-color)`.
-    *   To ensure the subtle outline from the box shadow matches this new border color (making it "like the Clear All Selections card" which has a cohesive accent color scheme), I'll update the `--card-shadow` CSS variable in `:root`. The part of the shadow that creates a 1px outline (`0 0 0 1px var(--border-color)`) will be changed to `0 0 0 1px var(--accent-color)`. This will affect all elements using `var(--card-shadow)`.
-
-This will ensure all specified cards get a neon green border and the outline from their shadow will also be neon green, creating a consistent look.
-
-Here is the updated HTML file with all the changes integrated:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RTS-PIN</title>
+    <!-- Cache Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- End Cache Control Meta Tags -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -167,20 +157,18 @@ Here is the updated HTML file with all the changes integrated:
         .card.expanded > .card-header { border-bottom-color: var(--border-color); margin-bottom: 0.8rem; }
         .card-header h2 { font-size: 1.2rem; font-weight: bold; color: var(--primary-light); display: flex; align-items: center; text-shadow: var(--text-shadow); }
         
-        /* ADDED: Change specific card header titles to accent color */
         #date-selection-card > .card-header > h2,
         #rental-units-card > .card-header > h2,
         #generate-pins-card > .card-header > h2 {
             color: var(--accent-color);
         }
-        /* Ensure step number and selected count keep their specific colors */
         #date-selection-card > .card-header > h2 .step-number,
         #rental-units-card > .card-header > h2 .step-number,
         #generate-pins-card > .card-header > h2 .step-number {
-            color: white; /* Original color for step number text */
+            color: white; 
         }
         #generate-pins-card > .card-header > h2 #selected-units-count-display {
-            color: var(--dark-text); /* Original color for selected units count */
+            color: var(--dark-text); 
         }
 
 
@@ -355,11 +343,11 @@ Here is the updated HTML file with all the changes integrated:
 
         .company-card {
             background-color: var(--input-bg);
-            border: 1px solid var(--accent-color); /* MODIFIED for green border */
+            border: 1px solid var(--accent-color); 
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            box-shadow: var(--card-shadow); /* Will use updated --card-shadow */
+            box-shadow: var(--card-shadow); 
         }
         .company-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 0.8rem 1rem; }
 
@@ -432,10 +420,10 @@ Here is the updated HTML file with all the changes integrated:
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            border: 1px solid var(--accent-color); /* MODIFIED for green border */
+            border: 1px solid var(--accent-color); 
             border-radius: 8px;
             background-color: var(--card-bg);
-            box-shadow: var(--card-shadow); /* Will use updated --card-shadow */
+            box-shadow: var(--card-shadow); 
         }
         #screenshot-table-container table { font-size: 1rem; color: var(--dark-text); }
         #screenshot-table-container th, #screenshot-table-container td { padding: 12px 15px; border-color: var(--border-color); font-weight: bold; }
@@ -696,7 +684,7 @@ Here is the updated HTML file with all the changes integrated:
             "3288", "3289", "3290", "3291", "3292"
         ]);
 
-        const rentalData = { // MODIFIED: "CR ROOM" to "BCR" in Dieter and re-sorted by .sort()
+        const rentalData = { 
             "Dieter": ["A1K", "A2J", "A3H", "A3R", "B1F", "BCR", "C1B", "C1D", "C4B", "D1C", "D1E", "D3F", "D4C", "D4E"].sort(),
             "Dunes": ["C2A", "C2D", "D4D", "D1A", "A1S", "A1J", "B5H", "B5C", "B5A", "B1C", "B4E", "B2C"].sort(),
             "James Smith Realty": ["C3F", "D2A", "D3B", "D3D", "D3E", "D4B"].sort(),
@@ -1535,13 +1523,10 @@ Here is the updated HTML file with all the changes integrated:
         function populateMonthDropdown() {
             const monthSelect = document.getElementById('month-select');
             monthSelect.innerHTML = '';
-            // getMonthName is already defined, but it returns a single month name, not an array.
-            // Create the array here.
-            const monthNamesArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             for (let i = 0; i < 12; i++) {
                 const option = document.createElement('option');
                 option.value = i;
-                option.textContent = (i + 1).toString(); // Using number for display as per original
+                option.textContent = (i + 1).toString(); 
                 monthSelect.appendChild(option);
             }
         }
@@ -1707,7 +1692,7 @@ Here is the updated HTML file with all the changes integrated:
             updatePrimaryColorRGBVariables();
             populateMonthDropdown();
             populateYearDropdown();
-            populateAllCompanyUnits(); // This needs to run after rentalData is defined with "BCR"
+            populateAllCompanyUnits(); 
             buildCompanyCards();
 
             const now = new Date();
@@ -1748,4 +1733,3 @@ Here is the updated HTML file with all the changes integrated:
     </script>
 </body>
 </html>
-```
